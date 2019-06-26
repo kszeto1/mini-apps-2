@@ -28,11 +28,15 @@ class App extends React.Component {
     const limit = 10;
     Axios.get(`/events?q=${this.state.query}`)
     .then((res) => {
-      this.setState({pageCount: res.data.length/limit});
+      this.setState({pageCount: res.data.length/limit}, () => {
+        Axios.get(`/events?q=${this.state.query}&_page=1&_limit=10`)
+        .then((res) => {
+          this.setState({queryResults: res.data});
+        })
+      });
     })
-    Axios.get(`/events?q=${this.state.query}&_page=1&_limit=10`)
-    .then((res) => {
-      this.setState({queryResults: res.data});
+    .catch((err) => {
+      res.status(500).send(err);
     })
   }
 
