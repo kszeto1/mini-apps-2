@@ -3,11 +3,11 @@ import ResultItem from './ResultItem.jsx';
 
 const SearchResults = ({records}) => {
   return (
-    <div>
+    <ul>
       {records.map((record) => {
         return <ResultItem record={record} key={records.indexOf(record)}/>
       })}
-    </div>
+    </ul>
   )
 };
 
