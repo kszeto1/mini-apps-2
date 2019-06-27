@@ -1,0 +1,22 @@
+h1, div {
+  text-align: center;
+  margin: 0px auto;
+  margin-bottom: 30px;
+
+}
+
+table {
+  width: 80%;
+}
+
+table, th {
+    border: 1px solid #333;
+    margin: 0px auto;
+    margin-bottom: 30px;
+    border-collapse: collapse;
+}
+
+td {
+  background-color: #cdf;
+  border: 1px solid #333;
+}
