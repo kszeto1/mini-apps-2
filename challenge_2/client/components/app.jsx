@@ -1,19 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 import TimeSeriesChart from './Chart.jsx';
+import {Line} from 'react-chartjs-2';
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      chartData: {},
-      // data: null,
-      // dates: null
+      chartData: {}
     };
   }
 
   componentDidMount() {
-    const url = 'https://api.coindesk.com/v1/bpi/historical/close.json?start=2018-06-26&end=2019-06-26';
+    const url = 'https://api.coindesk.com/v1/bpi/historical/close.json?start=2019-06-01&end=2019-06-26';
 
     axios.get(url)
     .then((res) => {
@@ -23,7 +22,12 @@ class App extends React.Component {
         labels: dates,
         datasets: [
           {
-            label: 'BTC Price history past year',
+            label: 'BTC Price history past month',
+            borderColor: '#ff6485',
+            fill: false,
+            pointRadius: 0,
+            lineTension: 0,
+            borderWidth: 2,
             data: data
           }
         ]
@@ -36,10 +40,9 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.historicalPrices === null) {
+    if (Object.entries(this.state.chartData).length === 0) {
       return <div></div>
     }
-    console.log(this.state);
     const { chartData } = this.state;
 
     return (
