@@ -1,52 +1,67 @@
 import React from 'react';
 
-const ScoreSheet = (props) => {
-  return (
-    <table>
-    <thead>
+class ScoreSheet extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    const { frameScores, totalScore } = this.props;
+    const tableHeader = [];
+    const tableFirstRow = [];
+    const tableSecondRow = [];
+    for (let i = 1; i < 10; i++) {
+      let frameScore = 'frameScore' + i;
+      let lastFrame = 'frameScore10';
+      
+      if (i === 9) {
+        
+        tableHeader.push(
+          <th colSpan="2" key={'tableHeader' + i}>Frame {i}</th>, 
+          <th colSpan="3" key={'tableHeader-1' + i}>Frame {i + 1}</th>, 
+          <th colSpan="2" key={'tableHeader' + 11}>Total Score</th>
+        );
+
+        tableFirstRow.push(
+          <td colSpan="1" key={'tableFirstRow-0' + i}>{frameScores[frameScore][0]}</td>,
+          <td colSpan="1" key={'tableFirstRow-1' + i}>{frameScores[frameScore][1]}</td>,
+
+          <td colSpan="1" key={'tableFirstRow-lastFrame-0' + i}>{frameScores[lastFrame][0]}</td>,
+          <td colSpan="1" key={'tableFirstRow-lastFrame-1' + i}>{frameScores[lastFrame][1]}</td>,
+          <td colSpan="1" key={'tableFirstRow-lastFrame-2' + i}>{frameScores[lastFrame][2]}</td>,
+          <td colSpan="2" rowSpan="2" key={'tableFirstRowTotal'}>{totalScore}</td>
+        );
+
+        tableSecondRow.push(
+          <td colSpan="2" key={'tableSecondRow' + i}>{frameScores[frameScore][0] + frameScores[frameScore][1]}</td>,
+          <td colSpan="3" key={'tableSecondRow-lastFrame' + i}>{frameScores[lastFrame][0] + frameScores[lastFrame][1] + frameScores[lastFrame][2]}</td>
+        );
+      } else {
+        tableHeader.push(<th colSpan="2" key={'tableHeader' + i}>Frame {i}</th>);
+
+        tableFirstRow.push(<td colSpan="1" key={'tableFirstRow-1' + i}>{frameScores[frameScore][0]}</td>,<td colSpan="1" key={'tableFirstRow-2' + i}>{frameScores[frameScore][1]}</td>)
+
+        tableSecondRow.push(<td colSpan="2" key={'tableSecondRow' + i}>{frameScores[frameScore][0] + frameScores[frameScore][1]}</td>)
+      }
+    }
+    return (
+      <table>
+        <thead>
         <tr>
-            <th colSpan="2">Frame 1</th>
-            <th colSpan="2">Frame 2</th>
-            <th colSpan="2">Frame 3</th>
-            <th colSpan="2">Frame 4</th>
-            <th colSpan="2">Frame 5</th>
-            <th colSpan="2">Frame 6</th>
-            <th colSpan="2">Frame 7</th>
-            <th colSpan="2">Frame 8</th>
-            <th colSpan="2">Frame 9</th>
-            <th colSpan="3">Frame 10</th>
-            <th colSpan="2">Total Score</th>
+          {tableHeader}
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+      <tbody>
         <tr>
-            <td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="1">0</td><td colSpan="1">0</td><td colSpan="1">0</td>
-            <td colSpan="2" rowSpan="2">{props.totalScore}</td>
+          {tableFirstRow}
         </tr>
         <tr>
-            <td colSpan="2">0</td>
-            <td colSpan="2">0</td>
-            <td colSpan="2">0</td>
-            <td colSpan="2">0</td>
-            <td colSpan="2">0</td>
-            <td colSpan="2">0</td>
-            <td colSpan="2">0</td>
-            <td colSpan="2">0</td>
-            <td colSpan="2">0</td>
-            <td colSpan="3">0</td>
+          {tableSecondRow}
         </tr>
-    </tbody>
-    </table>
-  )
+      </tbody>
+      </table>
+    )
+  }
 }
 
 export default ScoreSheet;
